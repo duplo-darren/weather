@@ -4,12 +4,12 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 # Location configuration
-LATITUDE = 55.8642
-LONGITUDE = -4.2518
-CITY = "Glasgow, Scotland"
-TIMEZONE = "Europe/London"
-TEMP_UNIT = "celsius"  # "celsius" or "fahrenheit"
-WIND_UNIT = "kmh"  # "kmh" or "mph"
+LATITUDE = 40.7968
+LONGITUDE = -74.4815
+CITY = "Morristown, NJ"
+TIMEZONE = "America/New_York"
+TEMP_UNIT = "fahrenheit"  # "celsius" or "fahrenheit"
+WIND_UNIT = "mph"  # "kmh" or "mph"
 
 
 def get_weather():
