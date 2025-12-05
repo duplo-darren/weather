@@ -1,11 +1,22 @@
 name: Update Service
 
-on: 
+on:
   workflow_dispatch:
     inputs:
       environment:
         description: The environment to deploy to
         type: environment
+        default: dev
+        required: true
+      image:
+        description: The full image
+        type: string
+        required: true
+  workflow_call:
+    inputs:
+      environment:
+        description: The environment to deploy to
+        type: string
         default: dev
         required: true
       image:
