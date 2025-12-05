@@ -96,7 +96,7 @@
 
         {% if weather.success %}
             <div class="weather-icon">{{ weather.icon }}</div>
-            <div class="temperature">{{ weather.temperature | round | int }}°F</div>
+            <div class="temperature">{{ weather.temperature | round | int }}{{ weather.temp_unit }}</div>
             <div class="condition">{{ weather.condition }}</div>
 
             <div class="details">
@@ -106,7 +106,7 @@
                 </div>
                 <div class="detail-item">
                     <div class="detail-label">Wind</div>
-                    <div class="detail-value">{{ weather.wind_speed }} mph</div>
+                    <div class="detail-value">{{ weather.wind_speed }} {{ weather.wind_unit }}</div>
                 </div>
             </div>
         {% else %}

@@ -3,22 +3,29 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-# Using Open-Meteo API (free, no API key required)
+# Location configuration
 LATITUDE = 55.8642
 LONGITUDE = -4.2518
+CITY = "Glasgow, Scotland"
+TIMEZONE = "Europe/London"
+TEMP_UNIT = "celsius"  # "celsius" or "fahrenheit"
+WIND_UNIT = "kmh"  # "kmh" or "mph"
 
 
 def get_weather():
-    """Fetch current weather for Glasgow from Open-Meteo API."""
+    """Fetch current weather from Open-Meteo API."""
     url = "https://api.open-meteo.com/v1/forecast"
     params = {
         "latitude": LATITUDE,
         "longitude": LONGITUDE,
         "current": "temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m",
-        "temperature_unit": "celsius",
-        "wind_speed_unit": "kmh",
-        "timezone": "Europe/London",
+        "temperature_unit": TEMP_UNIT,
+        "wind_speed_unit": WIND_UNIT,
+        "timezone": TIMEZONE,
     }
+
+    temp_symbol = "°C" if TEMP_UNIT == "celsius" else "°F"
+    wind_symbol = "km/h" if WIND_UNIT == "kmh" else "mph"
 
     try:
         response = requests.get(url, params=params, timeout=10)
@@ -34,6 +41,8 @@ def get_weather():
             "wind_speed": current.get("wind_speed_10m"),
             "condition": get_weather_condition(weather_code),
             "icon": get_weather_icon(weather_code),
+            "temp_unit": temp_symbol,
+            "wind_unit": wind_symbol,
             "success": True,
         }
     except requests.RequestException as e:
@@ -90,7 +99,7 @@ def get_weather_icon(code):
 @app.route("/")
 def home():
     weather = get_weather()
-    return render_template("index.html", weather=weather, city="Glasgow, Scotland")
+    return render_template("index.html", weather=weather, city=CITY)
 
 
 if __name__ == "__main__":
