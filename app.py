@@ -4,20 +4,20 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 # Using Open-Meteo API (free, no API key required)
-LATITUDE = 40.7128
-LONGITUDE = -74.0060
+LATITUDE = 55.8642
+LONGITUDE = -4.2518
 
 
 def get_weather():
-    """Fetch current weather for NYC from Open-Meteo API."""
+    """Fetch current weather for Glasgow from Open-Meteo API."""
     url = "https://api.open-meteo.com/v1/forecast"
     params = {
         "latitude": LATITUDE,
         "longitude": LONGITUDE,
         "current": "temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m",
-        "temperature_unit": "fahrenheit",
-        "wind_speed_unit": "mph",
-        "timezone": "America/New_York",
+        "temperature_unit": "celsius",
+        "wind_speed_unit": "kmh",
+        "timezone": "Europe/London",
     }
 
     try:
@@ -90,7 +90,7 @@ def get_weather_icon(code):
 @app.route("/")
 def home():
     weather = get_weather()
-    return render_template("index.html", weather=weather, city="New York City")
+    return render_template("index.html", weather=weather, city="Glasgow, Scotland")
 
 
 if __name__ == "__main__":
