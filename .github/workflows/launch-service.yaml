@@ -48,6 +48,6 @@ jobs:
     - name: Update Service
       uses: duplocloud/actions/update-image@v0.0.5
       with:
-        name: my-service
+        name: weather
         image: ${{ inputs.image }}
         type: service
